@@ -1,7 +1,6 @@
 @HomePageTest
 Feature: Launch Browser and Test Home Page
-Background:
-  Scenario: launch the home page of dsalgo portal   
+Background:	launch the home page of dsalgo portal   
     When The user clicks the Get Started button    
     
   @scenario1
