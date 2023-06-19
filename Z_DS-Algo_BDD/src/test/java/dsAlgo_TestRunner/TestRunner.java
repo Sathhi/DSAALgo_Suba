@@ -6,11 +6,11 @@ package dsAlgo_TestRunner;
 	import io.cucumber.testng.AbstractTestNGCucumberTests;
 
 	@io.cucumber.testng.CucumberOptions(
-	plugin = {"pretty", "html:target/OrangeProReorts.html"}, //reporting purpose
+	plugin = {"pretty", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}, //reporting purpose
 	monochrome=false,  //console output color
 	 //tags from feature file
-	features = {"classpath:Features/DLoginPage.feature"},
-	tags = " @Tag",	
+	features = {"classpath:Features/EDataStructurePage.feature"},
+	//tags = " @Tag",	
 	//tags={"@Login"}, //location of feature files (should be in src/test/reso
 	glue={"dsAlgo_StepDefinition","hooks"})//location of  step definition files
 	public class TestRunner  extends AbstractTestNGCucumberTests{
