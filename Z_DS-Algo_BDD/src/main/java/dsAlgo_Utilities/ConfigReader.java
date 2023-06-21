@@ -64,6 +64,15 @@ public class ConfigReader {
 		String registerpageurl=prop.getProperty("registerPageUrl");
 		if(registerpageurl != null)
 		return registerpageurl;
-		else throw new RuntimeException("HomePageurl not specified in the Config.properties file");			
+		else throw new RuntimeException("RegisterPageurl not specified in the Config.properties file");			
+	}
+	
+	public static String excelPath()
+	{
+		String ExcelPath=prop.getProperty("ExceldataPath");
+		if(ExcelPath!=null)		
+			return ExcelPath;
+			else throw new RuntimeException("Excel data path missing");
+		
 	}
 }
