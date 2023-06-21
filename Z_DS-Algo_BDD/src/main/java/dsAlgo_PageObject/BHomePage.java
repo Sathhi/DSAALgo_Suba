@@ -1,5 +1,6 @@
 package dsAlgo_PageObject;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -7,12 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
-
 import dsAlgo_Utilities.ConfigReader;
-import io.cucumber.messages.types.Duration;
 
 public class BHomePage {
 	private WebDriver driver;
@@ -28,16 +27,45 @@ public class BHomePage {
 	@FindBy(xpath="//a[text()='Sign in']")private WebElement signIn;
 	@FindBy(xpath="//a[text()=' Register ']")private WebElement register;
 	@FindBy(xpath = "//div[contains(@class,'alert ')]")private WebElement signinalert;
-
+	@FindBy(xpath = "//h5[text()='Array']/..//a")private WebElement arraygetstart;
+	@FindBy(xpath="//a[@href='linked-list']") private WebElement get_startBtn;
+	@FindBy(xpath = "//h5[text()='Stack']/..//a")private WebElement stackgetstart;
+	@FindBy(xpath = "//h5[text()='Tree']/..//a")private WebElement treegetstart;
 	
 	public BHomePage(WebDriver driver) {
 		this.driver=driver;		
 		PageFactory.initElements(driver, this);
 	}
 	
+	public FArrayPage array_getstart()
+	 {
+		//new WebDriverWait(driver,Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOf(arraygetstart));
+		arraygetstart.click();
+		return new FArrayPage(driver);}
+	
+	
+	
+	 public HStackPage stack_getstart()
+	 {
+		//new WebDriverWait(driver,Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOf(arraygetstart));
+		stackgetstart.click();
+		return new HStackPage(driver); 
+	 }
+	 public JTreePage tree_getstart()
+	 {
+		//new WebDriverWait(driver,Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOf(arraygetstart));
+		treegetstart.click();
+		return new JTreePage(driver); 
+	 }
 	public void homepage() {
 		driver.get(homePageurl);		
 	}	
+	
+	public GLinkedListPage ll_getStart() throws InterruptedException
+	{    Thread.sleep(3000);
+		get_startBtn.click();
+		return new GLinkedListPage(driver);		
+	}
 	
 	
    public void dropDownList(String string) throws InterruptedException
@@ -99,6 +127,7 @@ public class BHomePage {
 	 if(message.equalsIgnoreCase("You are logged in"))
 	 {
 		 WebElement optlst= driver.findElement(By.xpath("//h5[text()='"+option+"']/../a")); 
+		 new WebDriverWait(driver,Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOf(optlst));
 		 optlst.click();
 	 }
 	
