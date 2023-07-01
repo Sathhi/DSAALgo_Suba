@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import dsAlgo_Driverfactory.DriverFactory;
 import dsAlgo_Utilities.ConfigReader;
+import dsAlgo_Utilities.LoggerLoad;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -25,7 +26,7 @@ public class Hooks {
 	@Before(order=0)//will execute 0 and then 1
 	public void getProperty() throws IOException
 	{   
-		System.out.println("Initializing Config Properties ");
+		LoggerLoad.info("Loading Config Properties ");
 		configReader =new ConfigReader();
 		prop=configReader.init_prop();		
 	}
@@ -35,9 +36,9 @@ public class Hooks {
 	{
 		String browserName=prop.getProperty("browser");
 		String geturl=prop.getProperty("url");
-		System.out.println("launching the browser from the hooks page");
+		LoggerLoad.info("Initializing the DriverFactory class ");
 		driverFactory=new DriverFactory();
-		System.out.println("heloo browsername launch");
+	    LoggerLoad.info(browserName+ " browser is Launching");
 		driver=driverFactory.init_driver(browserName,geturl);	
 		
 	}
@@ -45,6 +46,7 @@ public class Hooks {
 	@After(order=0)// will execute after "1" then order 0
 	public void quitBrowser()
 	{
+		LoggerLoad.info("Closing Browser");
 		driver.quit();
 	}
 	
@@ -52,7 +54,8 @@ public class Hooks {
 	public void tearDown(Scenario scenario)
 	{
 		if(scenario.isFailed())//take ScreenShot;
-		{			
+		{	
+			LoggerLoad.error("Steps Failed , Taking Screenshot");
 			String screenShotName=scenario.getName().replaceAll("", "_");
 			byte[] sourcePath=((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
 			scenario.attach(sourcePath,"image/png", screenShotName);
